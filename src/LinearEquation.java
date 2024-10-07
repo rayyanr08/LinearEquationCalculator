@@ -24,18 +24,30 @@ public class LinearEquation {
 
     }
 
-    public double slope() {
+
+    public String slope() {
         int deltay = y2 - y1;
         int deltax = x2 - x1;
 
         if (deltay % deltax == 0) {
-            return deltay/deltax; // Handle undefined slope (optional)
+            return String.valueOf(Math.round(deltay / deltax * 100.0)/100.0 );
+
+        } else if (deltax < 0) {
+            deltax = deltax * -1;
+            deltay = deltay * -1;
+            return String.valueOf(deltay / deltax);
+
+        } else if (deltax < 0 && deltay < 0) {
+            deltax = deltax * -1;
+            deltay = deltay * -1;
+
         } else {
-            return Double.parseDouble(deltay + "/" + deltax);
+            return String.valueOf(deltay) + "/" + String.valueOf(deltax);
 
         }
-
+        return "";
     }
+
 
 
     public String Equation() {
@@ -43,7 +55,7 @@ public class LinearEquation {
     }
 
     public double yIntercept() {
-        Double yIntercept1 = Double.valueOf(y1 / (slope() * x1));
+        Double yIntercept1 = Double.valueOf(y1 - (Double.parseDouble(slope()) * x1));
         return (double) Math.round(yIntercept1 * 100) /100;
 
     }
@@ -63,9 +75,18 @@ public class LinearEquation {
     }
 
     public String pair3(){
-        double yValue = slope() * x3 + yIntercept();
-        double xValue = x3/1.0;
-        return "(" + xValue + ", " + yValue + ")";
+        return "(" + x3/1.0 + "," + (Double.parseDouble(slope()) * x3 + yIntercept()) + ")";
+    }
+
+
+    public void equationInfo(){
+        System.out.println(pair1());
+        System.out.println((pair2()));
+        System.out.println(slope());
+        System.out.println(yIntercept());
+        System.out.println(Equation());
+        System.out.println(distance());
+
     }
 
 
