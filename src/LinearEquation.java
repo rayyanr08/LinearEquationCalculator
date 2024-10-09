@@ -30,12 +30,13 @@ public class LinearEquation {
         int deltax = x2 - x1;
 
         if (deltay % deltax == 0) {
-            return String.valueOf(Math.round(deltay / deltax * 100.0)/100.0 );
+            // Format to always show 2 decimal places, even if the result is an integer
+            return String.format("%.2f", (double) deltay / deltax);
 
         } else if (deltax < 0) {
             deltax = deltax * -1;
             deltay = deltay * -1;
-            return String.valueOf(deltay / deltax);
+            return String.format("%.2f", (double) deltay / deltax);  // Cast to double for correct division
 
         } else if (deltax < 0 && deltay < 0) {
             deltax = deltax * -1;
@@ -43,9 +44,11 @@ public class LinearEquation {
 
         } else {
             return String.valueOf(deltay) + "/" + String.valueOf(deltax);
-
         }
-        return "";
+
+        // Perform division and round to the nearest hundredth
+        double slopeValue = (double) deltay / deltax;
+        return String.format("%.2f", slopeValue);
     }
 
 
@@ -55,14 +58,14 @@ public class LinearEquation {
     }
 
     public double yIntercept() {
-        Double yIntercept1 = Double.valueOf(y1 - (Double.parseDouble(slope()) * x1));
-        return (double) Math.round(yIntercept1 * 100) /100;
+        String yIntercept1 = String.format("%.2f", y1 - Double.parseDouble(slope()) * x1);
+        return Double.parseDouble(yIntercept1);
 
     }
 
     public double distance() {
         double distanceF = Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
-        return (double) Math.round(distanceF * 100) /100;
+        return (double)Math.round(distanceF * 100) /100;
 
     }
 
@@ -75,7 +78,7 @@ public class LinearEquation {
     }
 
     public String pair3(){
-        return "(" + x3/1.0 + "," + (Double.parseDouble(slope()) * x3 + yIntercept()) + ")";
+        return "(" + String.format("%.2f", x3/1.0) + "," + (Double.parseDouble(slope()) * x3 + yIntercept()) + ")";
     }
 
 
@@ -91,3 +94,4 @@ public class LinearEquation {
 
 
 }
+
